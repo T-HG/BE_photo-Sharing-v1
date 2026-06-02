@@ -75,7 +75,7 @@ app.get("/user/:id", async (req,res) => {
         }
         res.json(user);
     }catch(err){
-        res.staus(400).send(err.message);
+        res.status(400).send(err.message);
     }
 });
 mongoose.connect(mongoUrl).then(() =>{
