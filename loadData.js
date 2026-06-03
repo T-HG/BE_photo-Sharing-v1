@@ -1,7 +1,10 @@
 import mongoose from "mongoose";
+
 import models from "../photo-sharing-v1/photo-sharing-v1/src/modelData/models.js";
 
-const mongoUrl = "mongodb+srv://photoSharingV1:68686868@photosharingv1.8i7pwmo.mongodb.net/?appName=photoSharingV1";
+
+const mongoUrl =
+  "mongodb+srv://photoSharingV1:68686868@photosharingv1.8i7pwmo.mongodb.net/test?retryWrites=true&w=majority&appName=photoSharingV1";
 
 const userSchema = new mongoose.Schema({
   first_name: String,
@@ -9,6 +12,8 @@ const userSchema = new mongoose.Schema({
   location: String,
   description: String,
   occupation: String,
+  login_name: String,
+  password: String,
 });
 
 const commentSchema = new mongoose.Schema({
@@ -45,10 +50,17 @@ async function loadData() {
     photos = photos.concat(userPhotos);
   }
 
-  await User.insertMany(users);
+  const usersWithLogin = users.map((user) => ({
+    ...user,
+    login_name: user.last_name.toLowerCase(),
+    password: "123456",
+  }));
+
+  await User.insertMany(usersWithLogin);
   await Photo.insertMany(photos);
 
   console.log("Load data done");
+
   await mongoose.disconnect();
 }
 
