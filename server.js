@@ -110,12 +110,15 @@ app.post("/admin/logout", (req, res) => {
   res.send("Logout success");
 });
 
-mongoose.connect(mongoUrl).then(() =>{
-    console.log("MongoDB connected");
-
-    app.listen(port, () => {
-        console.log(`Server runing ${port}`)
-        });
-    }).catch((err) =>{
-        console.log("MongoDB connection error:", err.message);
+app.listen(port, () => {
+  console.log(`Server running ${port}`);
 });
+
+mongoose
+  .connect(mongoUrl)
+  .then(() => {
+    console.log("MongoDB connected");
+  })
+  .catch((err) => {
+    console.log("MongoDB connection error:", err.message);
+  });
