@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 
 
 const app = express();
-const port = 3001;
+const port = const port = process.env.PORT || 3001;;
 
 app.use(cors());
 app.use(express.json());
